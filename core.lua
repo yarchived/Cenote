@@ -1,9 +1,6 @@
 
 local L = setmetatable({}, {__index=function(t, i) return i end})
 local SATimer = LibStub('AceAddon-3.0'):NewAddon('SATimer')
---local L = setmetatable(GetLocale() == 'zhCN' and {
---} or GetLocale() == 'zhTW' and {
---}, {__index = function(t, i) return i end})
 
 local db
 local defaults = {
@@ -11,7 +8,6 @@ local defaults = {
         enabled = true,
     },
 }
-
 
 SATimer.all = {}
 SATimer.unused = {}
@@ -40,7 +36,6 @@ function SATimer:SPELL_ACTIVATION_OVERLAY_SHOW(spellID, texture, position, scale
     local endTime = self:GetTimeLeft(spellID)
 
     if(endTime) then
-        -- XXX
         if(not f) then
             f = self:GetUnused()
             self:SetUsing(f)
@@ -79,6 +74,7 @@ do
         rawset(t, i, n)
         return n
     end})
+
     function SATimer:GetTimeLeft(spellID)
         local spell = _SPELLS[spellID]
         if(not spell) then return end
