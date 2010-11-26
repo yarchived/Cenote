@@ -2,7 +2,7 @@
 ## Title: Spell Activation Timer
 ## Notes: Add timer to the build-in spell alert
 ## SavedVariables: SATimerDB
-## Version: 4.0.3.1
+## Version: 4.0.3.1-beta
 
 core.lua
 
