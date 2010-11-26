@@ -171,7 +171,7 @@ function SATimer:CreateTimer()
 
     f.text2 = f:CreateFontString(nil, 'OVERLAY')
     f.text2:SetFont(font, 20, 'OUTLINE')
-    f.text2:SetPoint('BOTTOMLEFT', f, 'BOTTOMRIGHT', 0, 2)
+    f.text2:SetPoint('BOTTOMLEFT', f, 'BOTTOMRIGHT', 0, 3)
     f.text2:SetJustifyH('LEFT')
     f.text2:SetJustifyV('BOTTOM')
     f.text2:SetTextColor(r, g, b)
