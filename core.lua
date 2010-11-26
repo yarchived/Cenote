@@ -1,6 +1,6 @@
 
 local L = setmetatable({}, {__index=function(t, i) return i end})
-local SATimer = LibStub('AceAddon-3.0'):NewAddon('SATimer')
+local Cenote = LibStub('AceAddon-3.0'):NewAddon('Cenote')
 local debug
 
 --local db
@@ -17,14 +17,14 @@ local complexLocationTable = {
 	['TOP + BOTTOM (FLIPPED)'] = 'BOTTOM',
 }
 
-function SATimer:OnInitialize()
-    local debugf = tekDebug and tekDebug:GetFrame'SATimer'
+function Cenote:OnInitialize()
+    local debugf = tekDebug and tekDebug:GetFrame'Cenote'
     debug = debugf and function(...)
         debugf:AddMessage(string.join(', ', tostringall(...)))
     end or function() end
 
     debug'OnLoad'
-    --self.db = LibStub("AceDB-3.0"):New('SATimerDB', defaults, UnitName'player' .. '-' .. GetRealmName())
+    --self.db = LibStub("AceDB-3.0"):New('CenoteDB', defaults, UnitName'player' .. '-' .. GetRealmName())
     --db = self.db.profile
 
     --self:SetupOption()
@@ -33,18 +33,18 @@ function SATimer:OnInitialize()
     self.SAFrame = SpellActivationOverlayFrame
 
     SpellActivationOverlayFrame:HookScript('OnEvent', function(...)
-        SATimer:OnSAOFEvent(...)
+        Cenote:OnSAOFEvent(...)
     end)
 end
 
-function SATimer:OnSAOFEvent(_, event, ...)
+function Cenote:OnSAOFEvent(_, event, ...)
     debug('OnEvent', event)
     if(event and self[event]) then
         self[event](self, ...)
     end
 end
 
-function SATimer:SPELL_ACTIVATION_OVERLAY_SHOW(spellID, texture, position, scale, r, g, b)
+function Cenote:SPELL_ACTIVATION_OVERLAY_SHOW(spellID, texture, position, scale, r, g, b)
     local f = self:Get(spellID)
     local endTime = self:GetTimeLeft(spellID)
     local POS = strupper(position)
@@ -73,7 +73,7 @@ function SATimer:SPELL_ACTIVATION_OVERLAY_SHOW(spellID, texture, position, scale
 
 end
 
-function SATimer:SPELL_ACTIVATION_OVERLAY_HIDE(spellID)
+function Cenote:SPELL_ACTIVATION_OVERLAY_HIDE(spellID)
     debug('HIDE', spellID)
     local f = self:Get(spellID)
     if(f) then
@@ -88,7 +88,7 @@ do
         return n
     end})
 
-    function SATimer:GetTimeLeft(spellID)
+    function Cenote:GetTimeLeft(spellID)
         local spell = _SPELLS[spellID]
         debug('SPELLID', spellID, spell)
         if(not spell) then return end
@@ -110,7 +110,7 @@ do
 
             --self.nextUpdate = timeLeft - floor(timeLeft)
         else
-            SATimer:Remove(self)
+            Cenote:Remove(self)
         end
     end
 
@@ -118,7 +118,7 @@ do
     --    update(self)
     --end
 
-    function SATimer:Update(f)
+    function Cenote:Update(f)
         debug('UPDATE', f.spellID)
         --f.text:SetTextColor(f.r, f.g, f.b)
         f:ClearAllPoints()
@@ -131,14 +131,14 @@ do
     end
 end
 
-function SATimer:Remove(f)
+function Cenote:Remove(f)
     debug('REMOVE', f, f.spellID)
     f:Hide()
     f:SetScript('OnUpdate', nil)
     f.using = nil
 end
 
-function SATimer:Get(spellID)
+function Cenote:Get(spellID)
     for k, v in ipairs(self.timers) do
         if(v.using and v.spellID == spellID) then
             return v
@@ -146,7 +146,7 @@ function SATimer:Get(spellID)
     end
 end
 
-function SATimer:GetUnused()
+function Cenote:GetUnused()
     for k, v in ipairs(self.timers) do
         if(not v.using) then return v end
     end
@@ -155,7 +155,7 @@ end
 
 local r, g, b, m = 1, .1, .1, .7
 local font = QuestFont_Large:GetFont()
-function SATimer:CreateTimer()
+function Cenote:CreateTimer()
     --debug'OnCreateTimer'
     local f = CreateFrame('Frame', nil, self.SAFrame)
     tinsert(self.timers, f)

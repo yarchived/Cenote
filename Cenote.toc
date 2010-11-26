@@ -1,7 +1,7 @@
 ﻿## Interface: 40000
-## Title: Spell Activation Timer
+## Title: Cenote
 ## Notes: Add timer to the build-in spell alert
-## SavedVariables: SATimerDB
+#### SavedVariables: CenoteDB
 ## Version: 4.0.3.1-beta
 
 core.lua
