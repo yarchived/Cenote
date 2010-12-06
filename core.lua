@@ -23,16 +23,8 @@
     OTHER DEALINGS IN THE SOFTWARE.
 ]===]
 
---local L = setmetatable({}, {__index=function(t, i) return i end})
 local Cenote = LibStub('AceAddon-3.0'):NewAddon('Cenote')
 local debug
-
---local db
---local defaults = {
---    profile = {
---        enabled = true,
---    },
---}
 
 local complexLocationTable = {
 	['RIGHT (FLIPPED)'] = 'RIGHT',
@@ -48,10 +40,6 @@ function Cenote:OnInitialize()
     end or function() end
 
     debug'OnLoad'
-    --self.db = LibStub("AceDB-3.0"):New('CenoteDB', defaults, UnitName'player' .. '-' .. GetRealmName())
-    --db = self.db.profile
-
-    --self:SetupOption()
 
     self.timers = {}
     self.SAFrame = SpellActivationOverlayFrame
@@ -94,7 +82,6 @@ function Cenote:SPELL_ACTIVATION_OVERLAY_SHOW(spellID, texture, position, scale,
             self:Remove(f)
         end
     end
-
 end
 
 function Cenote:SPELL_ACTIVATION_OVERLAY_HIDE(spellID)
@@ -149,7 +136,7 @@ do
         f:SetPoint(f.realPosition, self.SAFrame)
         f:Show()
 
-        f.nextUpdate = 0
+        --f.nextUpdate = 0
         update(f)
         f:SetScript('OnUpdate', update)
     end
@@ -180,7 +167,7 @@ end
 local r, g, b, m = 1, .1, .1, .7
 local font = QuestFont_Large:GetFont()
 function Cenote:CreateTimer()
-    --debug'OnCreateTimer'
+    debug'CreateTimer'
     local f = CreateFrame('Frame', nil, self.SAFrame)
     tinsert(self.timers, f)
     f:SetWidth(2)
