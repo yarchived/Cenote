@@ -47,6 +47,7 @@ function Cenote:OnInitialize()
     SpellActivationOverlayFrame:HookScript('OnEvent', function(...)
         Cenote:OnSAOFEvent(...)
     end)
+
 end
 
 function Cenote:OnSAOFEvent(_, event, ...)
