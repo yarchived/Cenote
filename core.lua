@@ -23,7 +23,7 @@
     OTHER DEALINGS IN THE SOFTWARE.
 ]===]
 
-local Cenote = LibStub('AceAddon-3.0'):NewAddon('Cenote')
+local Cenote = LibStub('AceAddon-3.0'):NewAddon('Cenote', 'AceEvent-3.0')
 local debug
 
 local complexLocationTable = {
@@ -48,12 +48,38 @@ function Cenote:OnInitialize()
         Cenote:OnSAOFEvent(...)
     end)
 
+    self:RegisterEvent('UNIT_AURA', 'UNIT_AURA')
 end
 
 function Cenote:OnSAOFEvent(_, event, ...)
     debug('OnEvent', event)
     if(event and self[event]) then
         self[event](self, ...)
+    end
+end
+
+function Cenote:UNIT_AURA(event, unit)
+    --if(unit == PlayerFrame.unit) then
+    if(unit == 'player') then
+        return self:RescanVisibleOverlay()
+    end
+end
+
+function Cenote:RescanVisibleOverlay()
+    for index, f in ipairs(self.timers) do
+        if(f.using) then
+            self:UpdateTimer(f)
+        end
+    end
+end
+
+function Cenote:UpdateTimer(f)
+    local endTime = self:GetTimeLeft(f.spellID)
+    if(endTime) then
+        f.endTime = endTime
+        self:Update(f)
+    else
+        self:Remove(f)
     end
 end
 
