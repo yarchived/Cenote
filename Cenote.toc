@@ -2,7 +2,7 @@
 ## Title: Cenote
 ## Notes: Add timer to the build-in spell alert
 ## Author: yleaf
-## Version: 4.0.3.3
+## Version: 4.0.3.4
 
 embeds.xml
 core.lua
