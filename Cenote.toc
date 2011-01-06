@@ -4,5 +4,6 @@
 ## Author: yleaf
 ## Version: 4.0.3.3
 
+embeds.xml
 core.lua
 
